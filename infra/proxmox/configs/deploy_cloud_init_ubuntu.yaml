@@ -1,0 +1,45 @@
+# deploy_cloud_init_ubuntu.yaml
+# Proxmox VM Deployment Configuration.
+# YAML Keys (e.g., IMAGE_URL) MUST match Bash script variable names.
+
+# --- Core Settings ---
+IMAGE_URL: "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img" # Source URL for the cloud image (qcow2/img).
+PROXMOX_ISO_DIR: "/var/lib/vz/template/iso"  # PVE dir for downloaded images. Supports ~.
+VM_MEMORY: "2048"       # VM RAM in MB.
+VM_CORES: "2"           # VM CPU cores.
+NETWORK_BRIDGE: "vmbr0" # PVE network bridge for net0.
+STORAGE_POOL: "A2000"   # PVE storage ID for VM OS disk.
+DISK_RESIZE: "100G"     # Final OS disk size. "+32G" for relative, "100G" for absolute.
+VM_NAME_PREFIX: "noble-server" # Prefix for final VM name (<prefix>-<release>-<vmid>).
+
+# --- Provisioning Method ---
+VM_PROVISIONING_METHOD: "cloud-init" # "cloud-init" (default), "none" for manual/other.
+
+# --- Cloud-Init Specific (Used if VM_PROVISIONING_METHOD is "cloud-init") ---
+CI_USER: "antoine"      # Username created by cloud-init.
+CI_PASSWORD: ""         # Password for CI_USER. Blank for interactive prompt (recommended).
+                        # If set, ensure `chmod 600` on this YAML file.
+SSH_KEY_PATH: "~/.ssh/id_rsa.pub" # Path to SSH public key for CI_USER. Supports ~.
+VM_CICUSTOM_CONFIG: ""  # Optional custom cloud-init user-data. Format: <storage_id>:snippets/<file.yaml>.
+
+# --- VM Behavior ---
+ONBOOT: "true"          # Start VM on PVE host boot (true/false or 1/0).
+START_VM_AFTER_CREATION: "true" # Start VM after script deployment? (true/false or 1/0).
+FORCE_DOWNLOAD: "false" # Always re-download cloud image (true/false).
+VM_PROTECTION: "false"  # Enable PVE VM protection flag (true/false or 1/0).
+
+# --- Advanced Hardware Configuration ---
+VM_OSTYPE: "l26"          # PVE Guest OS type (l26, ubuntu, win11, etc.).
+VM_AGENT_ENABLED: "true"  # Enable QEMU Guest Agent (true/false or 1/0). (Requires agent in VM).
+VM_BALLOON_ENABLED: "true" # Enable Memory Ballooning? (true/false or 1/0). (Requires agent).
+VM_NETWORK_MODEL: "virtio" # Virtual NIC model for net0 (virtio, e1000, vmxnet3).
+VM_NET0_FIREWALL: "true"  # Enable PVE firewall on net0 (true/false or 1/0).
+VM_SCSI_CONTROLLER: "virtio-scsi-pci" # Virtual SCSI controller (virtio-scsi-pci, lsi).
+VM_SCSI0_IOTHREAD: "true"         # Use dedicated I/O thread for scsi0? (true/false or 1/0).
+VM_SCSI0_SSD_EMULATION: "true"    # Present scsi0 to guest as SSD? (true/false or 1/0).
+VM_BIOS: "seabios"                   # Firmware: "seabios" (legacy BIOS) or "ovmf" (UEFI).
+VM_EFI_DISK_STORAGE: "A2000"      # PVE storage for EFI variables disk (only if VM_BIOS is "ovmf").
+VM_MACHINE_TYPE: "q35"            # Emulated machine type/chipset (q35, i440fx).
+VM_CPU_TYPE: "host"               # CPU type for guest (host, kvm64, EPYC, etc.).
+VM_VGA_TYPE: "serial0"            # Primary virtual graphics (serial0, std, virtio, none).
+VM_TAGS: "cloudinit,ubuntu,noble" # Comma-separated PVE tags for organization.
