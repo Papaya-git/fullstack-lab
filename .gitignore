@@ -1,0 +1,19 @@
+# IDE and OS-specific files
+.DS_Store
+.vscode/
+.idea/
+
+# Log files and command outputs
+*.log
+*.tfplan
+packer.log
+
+# Packer cache directory
+packer_cache/
+
+# ISO files and disk images
+downloaded_iso_path/
+
+# OpenTofu temporary directory and provider lock file
+.terraform/
+.terraform.lock.hcl
