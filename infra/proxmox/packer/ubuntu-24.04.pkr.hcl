@@ -1,8 +1,8 @@
 packer {
   required_plugins {
     proxmox = {
-      version = ">= 1.1.3"
-      source  = "github.com/hashicorp/proxmox"
+      version = ">= 1.2.3"
+      source  = "github.com/badsectorlabs/proxmox"
     }
   }
 }
@@ -62,9 +62,11 @@ source "proxmox-iso" "ubuntu-autoinstall" {
   tags                 = "ubuntu"
 
   # --- Hardware Configuration ---
-  scsi_controller     = "virtio-scsi-pci"
+  machine             = "q35"
+  cpu_type            = "host"
+  scsi_controller     = "virtio-scsi-single"
   cores               = 2
-  memory              = 4096 // Increased memory for the installer to run smoothly
+  memory              = 4096
   ballooning_minimum  = 1024 // Minimum memory for ballooning
 
   # --- VM System Settings ---
@@ -95,7 +97,7 @@ source "proxmox-iso" "ubuntu-autoinstall" {
   network_adapters {
     model     = "virtio"
     bridge    = "vmbr0"
-    firewall  = "false"
+    firewall  = "true"
   }
 
   # --- Autoinstall Boot Process ---
