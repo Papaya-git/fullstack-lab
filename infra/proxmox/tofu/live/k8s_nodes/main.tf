@@ -6,6 +6,7 @@ module "k8s_nodes_vms" {
   # --- Pass configuration from the map object to the module ---
   # The map key (e.g., "k8s-aio-01") becomes the VM's name.
   vm_name = each.key
+  vm_id   = each.value.vm_id
   
   # Get Proxmox node name from the decrypted SOPS data source
   target_node = data.sops_file.global_secrets.data["proxmox_node"]

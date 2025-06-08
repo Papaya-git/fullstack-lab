@@ -8,6 +8,10 @@ kubernetes_nodes = {
     # Run this command to find it: qm list | grep "debian-12-bookworm-autoinstall"
     # Replace 901 with the actual VM ID of your template
     template_vm_id  = 901
+    
+    # Specify the VM ID for the new VM (optional - if not specified, Proxmox auto-assigns)
+    vm_id           = 101
+    
     disk_size       = "25G"
     storage_pool    = "A2000"
     network_bridge  = "vmbr0"
@@ -15,10 +19,10 @@ kubernetes_nodes = {
     gateway         = "192.168.1.254"
     
     # --- Overrides for this specific node (optional) ---
-    start_on_create = true
     cores       = 10
     memory      = 16384 # 16GB
     tags        = ["k8s", "single-node"]
     nameservers = "192.168.1.254,192.168.1.253"
+    start_on_create = true
   }
 }

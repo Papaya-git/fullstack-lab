@@ -16,7 +16,7 @@ terraform {
 
 # Read the global secrets file
 data "sops_file" "global_secrets" {
-  source_file = "../_global/secrets.yaml"
+  source_file = "../_global/secrets.sops.yaml"
 }
 
 # Configure the Proxmox provider using the decrypted secrets

@@ -4,6 +4,12 @@ variable "vm_name" {
   description = "The name for the new virtual machine."
 }
 
+variable "vm_id" {
+  type        = number
+  description = "The specific VM ID to assign to the new virtual machine. If not specified, Proxmox will auto-assign the next available ID."
+  default     = null
+}
+
 variable "target_node" {
   type        = string
   description = "The Proxmox node to deploy the VM on."
@@ -73,7 +79,7 @@ variable "cpu" {
 variable "vga_type" {
   type        = string
   description = "The virtual VGA adapter type."
-  default     = "serial0"
+  default     = "std"
 }
 
 # --- Guest Agent and Memory ---
@@ -146,7 +152,7 @@ variable "network_model" {
 variable "network_firewall" {
   type        = bool
   description = "If true, enables the Proxmox firewall on the network interface."
-  default     = false
+  default     = true
 }
 
 # --- Cloud-Init Configuration ---

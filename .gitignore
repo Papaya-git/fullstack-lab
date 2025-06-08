@@ -18,16 +18,17 @@ http-ubuntu/user-data
 # ISO files and disk images
 downloaded_iso_path/
 
-# OpenTofu temporary directory and provider lock file
+# Terraform/OpenTofu files
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfplan.*
 .terraform/
 .terraform.lock.hcl
 
 # Exclude encrypted secrets
 secrets.yaml
-terraform.tfstate
-terraform.tfstate.backup
 
 # Include encrypted secrets
-!secrets.sops.yaml
-!terraform.sops.tfstate
-!terraform.sops.tfstate.backup
+!*.sops.*
+!*.sops.*.*

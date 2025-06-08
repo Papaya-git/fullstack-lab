@@ -1,6 +1,7 @@
 resource "proxmox_virtual_environment_vm" "vm" {
   # VM Identity and Placement
   name      = var.vm_name
+  vm_id     = var.vm_id
   node_name = var.target_node
   tags      = var.tags
   

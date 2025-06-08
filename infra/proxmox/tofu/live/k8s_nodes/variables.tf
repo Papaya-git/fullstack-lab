@@ -13,6 +13,7 @@ variable "kubernetes_nodes" {
     gateway = string
 
     # --- Optional settings that will use the sane defaults from the 'vm' module ---
+    vm_id              = optional(number)
     cores              = optional(number)
     memory             = optional(number)
     tags               = optional(list(string))
