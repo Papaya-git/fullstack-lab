@@ -56,7 +56,7 @@ while IFS=':' read -r key value; do
         cloud_init_password) ci_password="$value" ;;
         ssh_public_key) ssh_key="$value" ;;
     esac
-done < <(sops -d ../tofu/live/_global/secrets.sops.yaml | grep -v '^#')
+done < <(sops -d ../tofu/live/_global/secrets.yaml | grep -v '^#')
 
 echo "==> Generating hashed password for autoinstall..."
 cloud_init_password_hashed=$(mkpasswd -m sha-512 "$ci_password")

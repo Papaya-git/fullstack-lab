@@ -21,3 +21,13 @@ downloaded_iso_path/
 # OpenTofu temporary directory and provider lock file
 .terraform/
 .terraform.lock.hcl
+
+# Exclude encrypted secrets
+secrets.yaml
+terraform.tfstate
+terraform.tfstate.backup
+
+# Include encrypted secrets
+!secrets.sops.yaml
+!terraform.sops.tfstate
+!terraform.sops.tfstate.backup
