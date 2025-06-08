@@ -11,7 +11,7 @@ packer.log
 # Packer cache directory
 packer_cache/
 
-# General Terraform files
+# Ignore packer-generated autoinstall files
 http-debian/preseed.cfg
 http-ubuntu/user-data
 
