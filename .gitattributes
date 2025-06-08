@@ -1,7 +1,0 @@
-# Encrypt the OpenTofu state file and its backups with git-crypt.
-infra/proxmox/tofu/live/*/*.tfstate filter=git-crypt diff=git-crypt
-infra/proxmox/tofu/live/*/*.tfstate.* filter=git-crypt diff=git-crypt
-
-# Mark HCL files as binary to prevent bad merges.
-*.pkr.hcl binary
-*.tf binary
